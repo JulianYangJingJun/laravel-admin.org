@@ -90,12 +90,16 @@ class PostController extends Controller
 
             $grid->tags()->pluck('name')->label();
 
-            $states = [
-                'on' => ['text' => 'YES'],
-                'off' => ['text' => 'NO'],
-            ];
+            $grid->actions(function(Actions $action){
 
-            $grid->released()->switch($states);
+                //在操作按钮组前添加
+                $action->prepend("<a  href='".route('exampleImageSave',['id'=>$action->getkey()])."' ><i class='fa fa-image'></i></a>");
+
+                //在操作按钮组后添加
+                $action->append("<a  href='".route('exampleImageSave',['id'=>$action->getkey()])."' ><i class='fa fa-image'></i></a>");
+            });
+
+
 
             $grid->rate()->display(function ($rate) {
                 $html = "<i class='fa fa-star' style='color:#ff8913'></i>";
